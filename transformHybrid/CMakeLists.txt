@@ -1,0 +1,16 @@
+cmake_minimum_required(VERSION 2.8)
+
+project (libtransformHybrid)
+set(CMAKE_BUILD_TYPE Release)
+set (SOURCE_DIR "${PROJECT_SOURCE_DIR}/")
+SET(SOURCES ${SOURCE_DIR}/transformHybrid_helper.cpp ${SOURCE_DIR}/transformHybrid.cpp)
+SET(HEADERS ${SOURCE_DIR}/transformHybrid_helper.h ${SOURCE_DIR}/transformHybrid.h)
+list(APPEND CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
+add_library(TransformHybrid STATIC ${SOURCES} ${HEADERS})
+target_link_libraries(TransformHybrid ${PROJECT_LINK_LIBS} )
+find_package(OpenCV REQUIRED)
+include_directories(${OpenCV_INCLUDE_DIRS})
+target_link_libraries(TransformHybrid ${OpenCV_LIBS})
+
+install(TARGETS TransformHybrid ARCHIVE DESTINATION lib LIBRARY DESTINATION lib COMPONENT library )
+install(DIRECTORY . DESTINATION include/TransformHybrid FILES_MATCHING PATTERN "*.h")
